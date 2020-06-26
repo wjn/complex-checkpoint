@@ -3,14 +3,14 @@
   "containerDefinitions": [
     {
       "name": "client",
-      "image": "cygnetops/multi-client",
+      "image": "stephengrider/multi-client",
       "hostname": "client",
       "essential": false,
       "memory": 128
     },
     {
       "name": "server",
-      "image": "cygnetops/multi-server-pgfix-5-11",
+      "image": "stephengrider/multi-server",
       "hostname": "api",
       "essential": false,
       "memory": 128
