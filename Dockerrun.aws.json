@@ -10,7 +10,7 @@
     },
     {
       "name": "server",
-      "image": "stephengrider/multi-server",
+      "image": "cygnetops/multi-server-pgfix-5-11",
       "hostname": "api",
       "essential": false,
       "memory": 128
