@@ -18,6 +18,12 @@ spec:
             claimName: db-persistent-volume-claim
       containers:
         - name: postgres
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD
           image: postgres
           resources:
             limits:
