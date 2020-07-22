@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  # specify higherlevel configs
+  annotations:
+    # create ingress controller based on the nginx project
+    kubernetes.io/ingress.class: nginx
+    # ⬇ needed to prevent regex errors
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+    # removes all incoming paths at the first level so that we don't have to
+    # constanly add /api/some-request, we can just write /some-request
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - http:
+        paths:
+          # ⬇ route anything that hits the root endpoint to the client
+          # NOTE: you must append `?(.*)` to the path you want to focus on.
+          - path: /?(.*)
+            backend:
+              serviceName: client-cluster-ip-service
+              servicePort: 3000
+          # ⬇ route any /api requests to the api server
+          - path: /api/?(.*)
+            backend:
+              serviceName: server-cluster-ip-service
+              servicePort: 5000
